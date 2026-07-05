@@ -10,19 +10,17 @@ permissions:
   id-token: write
 
 jobs:
-  #--- TAHAPAN CI (Continuous Integration) ---
   build-and-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Kode
         uses: actions/checkout@v4
 
-      - name: Cek Apakah File index.html Ada (Automated Test)
+      - name: Cek Apakah File index.html Ada
         run: test -f index.html
 
-  #--- TAHAPAN CD (Continuous Deployment) ---
   deploy-to-pages:
-    needs: build-and-test # CD hanya jalan jika CI di atas sukses
+    needs: build-and-test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Kode
@@ -36,6 +34,6 @@ jobs:
         with:
           path: '.'
 
-      - name: Deploy ke GitHub Pages (Otomatis Berubah)
+      - name: Deploy ke GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
